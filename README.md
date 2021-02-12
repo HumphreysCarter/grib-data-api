@@ -7,7 +7,7 @@ tgftp.nws.noaa.gov
 
 
 ## GRIB2 Model Data FTP Availability
-## HRRR
+### HRRR
 Res: 3km
 
 Cycles: 00Z, 06Z, 12Z, 18Z
@@ -21,7 +21,7 @@ https://www.nco.ncep.noaa.gov/pmb/products/hrrr/
 GRIB data path:
 ftp://ftp.ncep.noaa.gov/pub/data/nccf/com/hrrr/prod/hrrr.20210209/conus/
 
-## NAM NEST
+### NAM NEST
 Res: 3km
 
 Cycles: 00Z, 06Z, 12Z, 18Z
@@ -32,7 +32,7 @@ Product description: https://www.nco.ncep.noaa.gov/pmb/products/nam/
 
 GRIB data path: ftp://ftp.ncep.noaa.gov/pub/data/nccf/com/nam/prod/nam.20210209/nam.t00z.conusnest.hiresf12.tm00.grib2
 
-## NAM
+### NAM
 Res: 12km
 
 Cycles: 00Z, 06Z, 12Z, 18Z
@@ -44,7 +44,7 @@ Product description: https://www.nco.ncep.noaa.gov/pmb/products/nam/
 GRIB data path:
 ftp://ftp.ncep.noaa.gov/pub/data/nccf/com/nam/prod/nam.20210209/nam.t00z.awphys12.tm00.grib2
 
-## GFS
+### GFS
 Res: 0.25 deg
 
 Cycles: 00Z, 06Z, 12Z, 18Z
