@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 class Ingest:
 
-    def __init__(self, model, date, downloadPath, server='ftpprd.ncep.noaa.gov', filter=None, include_idx=True, overwrite=False):
+    def __init__(self, model, date, downloadPath, filter=None, include_idx=True, overwrite=False):
         """
         Initializes ingest from an AWS S3 bucket for a given bucket and path, to a specified path.
         """
@@ -11,7 +11,6 @@ class Ingest:
         self.basePath = downloadPath
         self.vtime = date
         self.model = model
-        self.server = server
         self.serverPath = self.get_server_path()
         self.filter = filter
         self.idx = include_idx
@@ -24,7 +23,6 @@ class Ingest:
         key = {'GFS':f'/pub/data/nccf/com/gfs/prod/gfs.{self.vtime:%Y%m%d}/{self.vtime:%H}/',
                'NAM':f'/pub/data/nccf/com/nam/prod/nam.{self.vtime:%Y%m%d}/',
                'HRRR':f'/pub/data/nccf/com/hrrr/prod/hrrr.{self.vtime:%Y%m%d}/conus/'}
-
         try:
             return key[self.model.upper()]
         except:
@@ -35,7 +33,7 @@ class Ingest:
         Starts ingest from FTP server
         """
         # Login to FTP server with anonymous credentials
-        self.ftp = ftplib.FTP(self.server)
+        self.ftp = ftplib.FTP('ftp.ncep.noaa.gov')
         self.ftp.login('anonymous', 'password')
 
         # Navigate to directory for desired run
