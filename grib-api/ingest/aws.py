@@ -72,7 +72,7 @@ class Ingest:
 
         # Build request for noaa-hrrr-pds
         elif self.bucketName == 'noaa-gefs-pds':
-            self.request = f'gfs.{self.vtime:%Y%m%d}/{self.vtime:%H}/atmos/ge'
+            self.request = f'gfs.{self.vtime:%Y%m%d}/{self.vtime:%H}/atmos/'
 
         # Build request for noaa-hrrr-pds
         elif self.bucketName == 'noaa-hrrr-bdp-pds':
@@ -97,9 +97,14 @@ class Ingest:
         if isinstance(self.filter, str):
             self.filter = [self.filter]
 
-        # Check that each keyword is in each file
-        for keyword in self.filter:
-            self.files = [file for file in self.files if keyword in file]
+        # Check that each file contain a keyword
+        updatedList = []
+        for file in self.files:
+            if [keyword for keyword in self.filter if(keyword in file)]:
+                updatedList.append(file)
+
+        # Update file list
+        self.files = updatedList
 
     def __download_s3_bucket(self):
         """
