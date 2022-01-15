@@ -22,7 +22,7 @@ class Ingest:
         """
         Gets an AWS S3 bucket name for a given model
         """
-        key = {'GFS':'noaa-gfs-bdp-pds', 'GEFS':'noaa-gfes-pds', 'HRRR':'noaa-hrrr-bdp-pds', 'NBM':'noaa-nbm-grib2-pds'}
+        key = {'GFS':'noaa-gfs-bdp-pds', 'GEFS':'noaa-gefs-pds', 'HRRR':'noaa-hrrr-bdp-pds', 'NBM':'noaa-nbm-grib2-pds'}
 
         try:
             return key[model.upper()]
@@ -72,7 +72,7 @@ class Ingest:
 
         # Build request for noaa-hrrr-pds
         elif self.bucketName == 'noaa-gefs-pds':
-            self.request = f'gfs.{self.vtime:%Y%m%d}/{self.vtime:%H}/atmos/'
+            self.request = f'gefs.{self.vtime:%Y%m%d}/{self.vtime:%H}/atmos/'
 
         # Build request for noaa-hrrr-pds
         elif self.bucketName == 'noaa-hrrr-bdp-pds':
@@ -114,7 +114,7 @@ class Ingest:
         self.file_list = []
 
         # Build path from request
-        path = f'{self.basePath}/{self.request[:self.request.rfind("/")]}'
+        path = f'{self.basePath}/{self.files[0][:self.files[0].rfind("/")]}'
         Path(path).mkdir(parents=True, exist_ok=True)
 
         # Get files
