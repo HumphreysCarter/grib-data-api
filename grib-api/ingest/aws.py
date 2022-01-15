@@ -22,12 +22,12 @@ class Ingest:
         """
         Gets an AWS S3 bucket name for a given model
         """
-        key = {'GFS':'noaa-gfs-bdp-pds', 'GEFS':'noaa-gefs-pds', 'HRRR':'noaa-hrrr-bdp-pds', 'NBM':'noaa-nbm-grib2-pds'}
+        key = {'GFS':'noaa-gfs-bdp-pds', 'GEFS':'noaa-gefs-pds', 'HRRR':'noaa-hrrr-bdp-pds', 'NBM':'noaa-nbm-grib2-pds', 'RAP':'noaa-rap-pds'}
 
         try:
             return key[model.upper()]
         except:
-             raise KeyError('Input model is unsupported. Supported models are GFS, GEFS, HRRR, and NBM.')
+             raise KeyError('Input model is unsupported. Supported models are GFS, GEFS, HRRR, RAP, and NBM.')
 
     def start(self):
         """
@@ -47,7 +47,8 @@ class Ingest:
             self.files = [file for file in self.files if '.idx' not in file]
 
         # Filter based on desired files
-        self.__filter_files()
+        if self.filter != None:
+            self.__filter_files()
 
         # Download all files within the s3 bucket
         self.__download_s3_bucket()
@@ -70,7 +71,7 @@ class Ingest:
         if self.bucketName == 'noaa-gfs-bdp-pds':
             self.request = f'gfs.{self.vtime:%Y%m%d}/{self.vtime:%H}/atmos/gfs.t{self.vtime:%H}z.'
 
-        # Build request for noaa-hrrr-pds
+        # Build request for noaa-gefs-pds
         elif self.bucketName == 'noaa-gefs-pds':
             self.request = f'gefs.{self.vtime:%Y%m%d}/{self.vtime:%H}/atmos/'
 
@@ -78,9 +79,13 @@ class Ingest:
         elif self.bucketName == 'noaa-hrrr-bdp-pds':
             self.request = f'hrrr.{self.vtime:%Y%m%d}/conus/hrrr.t{self.vtime:%H}z.'
 
-        # Build request for noaa-hrrr-pds
+        # Build request for noaa-nbm-grib2-pds
         elif self.bucketName == 'noaa-nbm-grib2-pds':
             self.request = f'blend.{self.vtime:%Y%m%d}/{self.vtime:%H}/core/blend.t{self.vtime:%H}z.'
+
+        # Build request for noaa-rap-pds
+        elif self.bucketName == 'noaa-rap-pds':
+            self.request = f'rap.{self.vtime:%Y%m%d}/rap.t{self.vtime:%H}z.'
 
     def __get_s3_bucket_listing(self):
         """
