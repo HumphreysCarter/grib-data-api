@@ -18,6 +18,11 @@ https://registry.opendata.aws/noaa-hrrr-pds/
 
 s3://noaa-hrrr-pds
 
+### RAP
+https://registry.opendata.aws/noaa-rap/
+
+s3://noaa-rap-pds
+
 ### NBM
 https://registry.opendata.aws/noaa-nbm/
 
